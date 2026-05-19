@@ -5,16 +5,16 @@ import (
 	"sync"
 )
 
-var wg sync.WaitGroup
-
-func getVal(getCh <-chan int) {
+func getVal(wg *sync.WaitGroup, getCh <-chan int) {
 	fmt.Println(<-getCh)
 	wg.Done()
 }
 
 func main() {
+	wg := &sync.WaitGroup{}
+
 	getCh := make(<-chan int)
 	wg.Add(1)
-	go getVal(getCh)
+	go getVal(wg, getCh)
 	wg.Wait()
 }
