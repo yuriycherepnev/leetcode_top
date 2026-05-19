@@ -24,6 +24,14 @@ func getValue(wg *sync.WaitGroup, intChan chan int) {
 	//	fmt.Println(value)
 	//}
 
+	// также можно обрабатывать сообщения из канала в бесконечном цикле
+	//for {
+	//	value, opened := <-intChan
+	//	if !opened {
+	//		break
+	//	}
+	//}
+
 	//работа с буферизованным каналом наглядно
 	for i := 0; i < 7; i++ {
 		value, opened := <-intChan
