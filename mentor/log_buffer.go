@@ -21,7 +21,7 @@ type FileLogger struct {
 	buffer []string
 }
 
-func (f FileLogger) Log(message string) {
+func (f *FileLogger) Log(message string) {
 	f.buffer = append(f.buffer, message)
 	fmt.Println("saved:", message)
 }
@@ -35,7 +35,7 @@ func (s Service) Process() {
 }
 
 func main() {
-	logger := FileLogger{}
+	logger := &FileLogger{}
 	logger.Log("123")
 
 	service := Service{
@@ -48,11 +48,11 @@ func main() {
 }
 
 /*
-1. Value receiver (получатель-значение) — это всегда копия
+В Go, когда метод определён на значении, внутри метода создаётся копия структуры.
+Все изменения полей (например, добавление в buffer) происходят с этой копией и
+не влияют на исходный объект после выхода из метода.
+
+Value receiver (получатель-значение) — это всегда копия
 Когда метод объявлен с получателем-значением (func (f FileLogger) Log(...)), каждый вызов метода получает копию структуры.
 Все изменения внутри метода происходят с этой копией и пропадают после выхода из метода.
-
-2. Интерфейс хранит копию переданного значения
-
-
 */
