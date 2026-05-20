@@ -16,7 +16,6 @@ func main() {
 	duplicates := containsDuplicate(nums)
 
 	fmt.Println(duplicates)
-
 }
 
 func containsDuplicate(nums []int) bool {
