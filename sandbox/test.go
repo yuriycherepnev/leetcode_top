@@ -1,35 +1,38 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-type User struct {
-	count int
-	book  Book
+type Logger interface {
+	Log(message string)
 }
 
-type Book struct {
-	count int
+type FileLogger struct {
+	buffer []string
 }
 
-type UserInterface interface {
-	Inc()
+func (f *FileLogger) Log(message string) {
+	f.buffer = append(f.buffer, message)
+	fmt.Println("saved:", message)
+}
+
+type Service struct {
+	logger Logger
+}
+
+func (s Service) Process() {
+	s.logger.Log("start process")
 }
 
 func main() {
-	user := User{
-		count: 2,
-		book:  Book{count: 2},
+	logger := &FileLogger{}
+
+	service := Service{
+		logger: logger,
 	}
 
-	user.book.Inc()
+	service.Process()
 
-	fmt.Println(user.book.count) // 1
-}
-
-func (u *User) Inc() {
-	u.count++
-}
-
-func (u *Book) Inc() {
-	u.count++
+	fmt.Println(logger)
 }
