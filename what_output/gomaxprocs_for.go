@@ -12,7 +12,6 @@ package main
 import (
 	"fmt"
 	"runtime"
-	"sync/atomic"
 )
 
 func main() {
@@ -20,11 +19,13 @@ func main() {
 
 	var i int64
 
+	// пример из урока балуна, но чтобы сравнение работало корректно,
+	// операцию инкремента надо делать атомарно
 	go func() {
 		for {
-			//i++
+			i++
 			// чтоб изменения стали видны:
-			atomic.AddInt64(&i, 1)
+			//atomic.AddInt64(&i, 1)
 		}
 	}()
 
