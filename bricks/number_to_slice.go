@@ -13,15 +13,15 @@ func numberToSlice(number int) []int {
 	if number == 0 {
 		return []int{0}
 	}
-	digitCount := 0
+	count := 0
 
 	for temp := number; temp != 0; temp /= 10 {
-		digitCount++
+		count++
 	}
 
-	numberSlice := make([]int, digitCount)
+	numberSlice := make([]int, count)
 
-	for i := digitCount - 1; i >= 0; i-- {
+	for i := count - 1; i >= 0; i-- {
 		remainder := number % 10
 		number /= 10
 		numberSlice[i] = remainder
