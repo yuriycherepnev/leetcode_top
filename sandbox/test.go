@@ -1,8 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"runtime"
+)
 
 func main() {
-	number := 10
-	fmt.Println(number % 10)
+
+	fmt.Println(runtime.GOMAXPROCS(0))
+
+	fmt.Println(runtime.NumCPU())
+
+	runtime.GOMAXPROCS(16)
+
+	fmt.Println(runtime.GOMAXPROCS(0))
+	fmt.Println(runtime.NumCPU())
+
 }
