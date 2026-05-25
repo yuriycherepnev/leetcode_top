@@ -2,18 +2,15 @@ package main
 
 import (
 	"fmt"
-	"runtime"
+	"sync"
 )
 
 func main() {
+	var cache sync.Map
 
-	fmt.Println(runtime.GOMAXPROCS(0))
+	cache.Store("user:1", "Yuriy")
 
-	fmt.Println(runtime.NumCPU())
-
-	runtime.GOMAXPROCS(16)
-
-	fmt.Println(runtime.GOMAXPROCS(0))
-	fmt.Println(runtime.NumCPU())
+	value, ok := cache.Load("user:1")
+	fmt.Println(value, ok)
 
 }
