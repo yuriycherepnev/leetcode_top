@@ -3,8 +3,8 @@ package main
 import "fmt"
 
 type EndNode struct {
-	Value int
-	Next  *EndNode
+	Val  int
+	Next *EndNode
 }
 
 type EndList struct {
@@ -13,7 +13,7 @@ type EndList struct {
 
 func (l *EndList) PushForward(val int) {
 	newNode := &EndNode{
-		Value: val,
+		Val: val,
 	}
 	if l.head == nil {
 		l.head = newNode
@@ -25,33 +25,35 @@ func (l *EndList) PushForward(val int) {
 
 func main() {
 	list := EndList{}
-
-	list.PushForward(10)
-	list.PushForward(20)
-	list.PushForward(30)
-	list.PushForward(40)
-
-	result := removeNthFromEnd(&list, 2)
-
-	current := result.head
+	list.PushForward(5)
+	list.PushForward(4)
+	list.PushForward(3)
+	list.PushForward(2)
+	list.PushForward(1)
+	removeNthFromEnd(list.head, 2)
+	current := list.head
 	for current != nil {
 		fmt.Println(current)
 		current = current.Next
 	}
-
 }
 
-func removeNthFromEnd(head *EndList, n int) *EndList {
-	current := head.head
-	listCount := 1
-
-	for current != nil {
-		if listCount == n {
-			current.Value = current.Next.Value
-			current.Next = current.Next.Next
-			break
-		}
-		current = current.Next
+func removeNthFromEnd(head *EndNode, n int) *EndNode {
+	node := &EndNode{
+		Next: head,
 	}
-	return head
+	ahead := node
+	base := node
+
+	for i := 0; i < n; i++ {
+		ahead = ahead.Next
+	}
+
+	for ahead.Next != nil {
+		ahead = ahead.Next
+		base = base.Next
+	}
+	base.Next = base.Next.Next
+
+	return node.Next
 }
