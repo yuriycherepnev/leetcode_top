@@ -11,26 +11,20 @@ var (
 	HeadOne = &MergeNode{
 		Val: 1,
 		Next: &MergeNode{
-			Val: 3,
+			Val: 2,
 			Next: &MergeNode{
-				Val: 5,
-				Next: &MergeNode{
-					Val:  7,
-					Next: nil,
-				},
+				Val:  4,
+				Next: nil,
 			},
 		},
 	}
 	HeadTwo = &MergeNode{
-		Val: 2,
+		Val: 1,
 		Next: &MergeNode{
-			Val: 4,
+			Val: 3,
 			Next: &MergeNode{
-				Val: 6,
-				Next: &MergeNode{
-					Val:  8,
-					Next: nil,
-				},
+				Val:  4,
+				Next: nil,
 			},
 		},
 	}
@@ -48,29 +42,26 @@ func main() {
 func mergeTwoLists(list1 *MergeNode, list2 *MergeNode) *MergeNode {
 	currentOne := list1
 	currentTwo := list2
-	merged := &MergeNode{}
+	prev := &MergeNode{}
+	head := prev
 
-	if currentOne.Val <= currentTwo.Val {
-		merged = currentOne
-		currentOne = currentOne.Next
-	} else {
-		merged = currentTwo
-		currentTwo = currentTwo.Next
-	}
-	head := merged
-
-	count := 0
-
-	for merged != nil {
+	for currentOne != nil && currentTwo != nil {
 		if currentOne.Val <= currentTwo.Val {
-			merged.Next = currentOne
+			prev.Next = currentOne
 			currentOne = currentOne.Next
 		} else {
-			merged.Next = currentTwo
+			prev.Next = currentTwo
 			currentTwo = currentTwo.Next
 		}
-		merged = merged.Next
-		count++
+		prev = prev.Next
 	}
-	return head
+
+	if currentOne != nil {
+		prev.Next = currentOne
+	}
+	if currentTwo != nil {
+		prev.Next = currentTwo
+	}
+
+	return head.Next
 }
