@@ -3,17 +3,21 @@ package main
 import (
 	"fmt"
 	"sync"
+	"time"
 )
 
-func simpleGo(wg *sync.WaitGroup) {
-	fmt.Println(4)
+func one(wg *sync.WaitGroup) {
+	wg.Wait()
+	wg.Add(1)
+	fmt.Println(1)
 	wg.Done()
 }
 
 func main() {
 	wg := &sync.WaitGroup{}
-	//wg.Add()
+	go one(wg)
+	go one(wg)
+	go one(wg)
 
-	go simpleGo(wg)
-	wg.Wait()
+	time.Sleep(1 * time.Second)
 }
