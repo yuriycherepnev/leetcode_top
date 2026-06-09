@@ -2,39 +2,30 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"sync"
 	"time"
 )
 
-var pokemonList = []string{"Charmander", "Squirtle", "Bulbasaur", "Jigglypuff"}
-var cond = sync.NewCond(&sync.Mutex{})
-var pokemon = ""
-
 func main() {
+	var mu sync.Mutex
+	cond := sync.NewCond(&mu)
+	ready := false
 	go func() {
-		cond.L.Lock()
-		defer cond.L.Unlock()
-
-		fmt.Println(pokemon)
-		for pokemon != "Pikachu" {
+		mu.Lock()
+		for !ready {
+			fmt.Println(111)
 			cond.Wait()
 		}
-		println("Caught" + pokemon)
-		pokemon = ""
+		fmt.Println("Условие выполнено, продолжаем работу.")
+		mu.Unlock()
 	}()
 
-	go func() {
-		for i := 0; i < 100; i++ {
-			time.Sleep(time.Millisecond)
+	time.Sleep(1 * time.Second)
 
-			cond.L.Lock()
-			pokemon = pokemonList[rand.Intn(len(pokemonList))]
-			cond.L.Unlock()
+	mu.Lock()
+	//ready = true
+	cond.Signal()
+	mu.Unlock()
 
-			cond.Signal()
-		}
-	}()
-
-	time.Sleep(100 * time.Millisecond) // lazy wait
+	time.Sleep(1 * time.Second)
 }
