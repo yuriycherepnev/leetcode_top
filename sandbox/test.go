@@ -2,15 +2,10 @@ package main
 
 import (
 	"fmt"
-	"sync"
+	"time"
 )
 
 func main() {
-	var cache sync.Map
-
-	cache.Store("user:1", "Yuriy")
-
-	value, ok := cache.Load("user:1")
-	fmt.Println(value, ok)
-
+	time.Sleep(time.Millisecond * 500)
+	fmt.Println(1111)
 }
