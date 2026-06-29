@@ -149,6 +149,7 @@ func (s *StockService) worker(ctx context.Context, itemsCh chan string, resultsC
 type fetcher struct{}
 
 func (f *fetcher) FetchStock(ctx context.Context, itemID string) (int, error) {
+	time.Sleep(5 * time.Second)
 	return 10, nil
 }
 
