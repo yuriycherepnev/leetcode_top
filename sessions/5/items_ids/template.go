@@ -9,6 +9,7 @@
 
 package main
 
+/*
 import "context"
 
 type Result struct {
@@ -52,4 +53,6 @@ func (s *StockService) ProcessStocks(
 	workersCount int,
 ) error {
 	// implementation
+	return nil
 }
+*/
