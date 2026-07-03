@@ -12,17 +12,17 @@ func main() {
 }
 
 func strStr(haystack string, needle string) int {
-	needleRune := []rune(needle)
-	i := 0
-
-	for index, value := range haystack {
-		if value == needleRune[i] {
-			i++
-		} else {
-			i = 0
-		}
-		if i == len(needleRune) {
-			return (index - len(needleRune)) + 1
+	h := len(haystack)
+	n := len(needle)
+	if n == 0 {
+		return 0
+	}
+	if n > h {
+		return -1
+	}
+	for i := 0; i <= h-n; i++ {
+		if haystack[i:i+n] == needle {
+			return i
 		}
 	}
 	return -1
