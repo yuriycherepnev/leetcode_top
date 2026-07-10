@@ -23,7 +23,7 @@ func main() {
 	// здесь ничего не измения [0 0 0]
 	fmt.Println(s)
 	length := cap(s)
-	a := s[0:length]
+	a := s[:length]
 	// здесь мы получим оригинальный массив [0 0 0 4]
 	fmt.Println(a)
 }
