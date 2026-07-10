@@ -10,6 +10,13 @@ func changeSlice(s []int) {
 	// то это изменит оригинальный массив, и за пределами функции
 }
 
+/*
+чтобы поменять сам слайс, необходимо выполнить дереференс
+func changeSlice(*s []int) {
+	*s = append(*s, 4)
+}
+*/
+
 func main() {
 	s := make([]int, 3, 4)
 	changeSlice(s)
