@@ -1,11 +1,20 @@
 package main
 
-import (
-	"fmt"
-	"time"
-)
+import "fmt"
+
+// здесь создается локальная копия слайса, поэтому слайс снаружи не имзенится
+// но append меняет сам массив на который ссылается слайс
+func changeSlice(s []int) {
+	s = append(s, 4)
+}
 
 func main() {
-	time.Sleep(time.Millisecond * 500)
-	fmt.Println(1111)
+	s := make([]int, 3, 4)
+	changeSlice(s)
+	// здесь ничего не измения [0 0 0]
+	fmt.Println(s)
+	length := cap(s)
+	a := s[0:length]
+	// здесь мы получим оригинальный массив [0 0 0 4]
+	fmt.Println(a)
 }
